@@ -2,9 +2,22 @@
 	import { onDestroy, onMount } from 'svelte';
 	import type * as Monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
+	// interface Props {
+	// 	finishLoading: () => void;
+	// }
+
 	let editor: Monaco.editor.IStandaloneCodeEditor;
 	let monaco: typeof Monaco;
 	let editorContainer: HTMLElement;
+
+	const DEFAULT_CODE = `function benoetigteElfen(flottenGroesse){
+	//flottenGroesse ist eine Zahl z.B. 7
+	return flottenGroesse;
+	// return 2;
+	// return 6;
+	// return 1608;
+	// return Math.ceil(2 * flottenGroesse / 3);
+}`;
 
 	onMount(async () => {
 		// Import our 'monaco.ts' file here
@@ -15,10 +28,7 @@
 		editor = monaco.editor.create(editorContainer, {
 			theme: 'vs-dark'
 		});
-		const model = monaco.editor.createModel(
-			'function benoetigteElfen(flottenGroesse){\n\t//flottenGroesse ist eine Zahl z.B. 7\n\treturn flottenGroesse;\n}',
-			'javascript'
-		);
+		const model = monaco.editor.createModel(DEFAULT_CODE, 'javascript');
 		editor.setModel(model);
 		// monaco.editor
 		// 	.colorize(editor.getModel()?.getValue() || '', 'javascript', { tabSize: 2 })
@@ -32,10 +42,9 @@
 
 	export function getCode() {
 		let val = editor.getModel()?.getValue() || ''; // Returns the code as a string
-		console.log(val);
+		console.log('editor code:', val);
 		return val;
 	}
 </script>
 
-<div class="h-full w-full" bind:this={editorContainer}></div>
-<button onclick={getCode}>test</button>
+<div class="flex h-full w-full" bind:this={editorContainer}></div>

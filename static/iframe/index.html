@@ -1,0 +1,47 @@
+<!-- frame.html -->
+<!doctype html>
+<html>
+	<head>
+		<title>Evalbox's Frame</title>
+		<script>
+			const trustedOrigins = [''];
+
+			const __std__out = [];
+
+			// const originalConsoleLog = console.log;
+			// const originalConsoleError = console.error;
+			// const originalConsoleDebug = console.debug;
+
+			console.log = function (message) {
+				__std__out.push({ level: 'log', msg: message });
+			};
+			console.debug = function (message) {
+				__std__out.debug({ level: 'debug', msg: message });
+			};
+			console.error = function (message) {
+				__std__out.error({ level: 'error', msg: message });
+			};
+
+			window.addEventListener('message', function (e) {
+				var mainWindow = e.source;
+				var result = '';
+				try {
+					let code = e.data.code;
+
+					// current testcase
+					let ctc = e.data.current_testcase;
+					result = eval(code);
+					mainWindow.postMessage(
+						{ result: result, code: code, current_testcase: ctc, logs: __std__out },
+						event.origin
+					);
+				} catch (error) {
+					mainWindow.postMessage(
+						{ error: error, code: code, current_testcase: ctc, logs: __std__out },
+						event.origin
+					);
+				}
+			});
+		</script>
+	</head>
+</html>
