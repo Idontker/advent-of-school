@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import Day1 from '$lib/comp/Day1.svelte';
-	import MonacoEditor from '$lib/comp/MonacoEditor.svelte';
+	import { Editor, Day1 } from '$lib';
 
 	let day: string;
 	let editor: any;
@@ -36,6 +35,7 @@
 	<h1 class="text-2xl font-bold">Day {day}</h1>
 
 	<div role="tablist" class="tabs tabs-lifted">
+		<!-- Tab 1 -->
 		<input
 			type="radio"
 			name="my_tabs_2"
@@ -50,6 +50,7 @@
 			<button on:click={() => (current_tab = 2)}> Solve </button>
 		</div>
 
+		<!-- Tab 2 -->
 		<input
 			type="radio"
 			name="my_tabs_2"
@@ -61,7 +62,7 @@
 		/>
 		<div role="tabpanel" class="tab-content rounded-box border-base-300 bg-base-100 p-6">
 			<div class="h-[200px] overflow-hidden rounded-lg">
-				<MonacoEditor bind:this={editor} />
+				<Editor bind:this={editor} />
 			</div>
 			<button on:click={runCode}>Run Code</button>
 		</div>
