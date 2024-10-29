@@ -9,8 +9,20 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
 	}
+
+	// "compilerOptions": {
+	// 	"moduleResolution": "node",
+	// 	"resolveJsonModule": true,
+	// 	"baseUrl": ".",
+	// 	"paths": {
+	// 	  "$lib/*": ["src/lib/*"],
+	// 	  "*": ["src/types/*", "*"], // Add other paths if you have them
+	// 	}
+	//   }
+	// }
+
 	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
 	// except $lib which is handled by https://svelte.dev/docs/kit/configuration#files
 	//
