@@ -45,6 +45,6 @@
 		console.log('editor code:', val);
 		return val;
 	}
-</script>
+</script> 
 
 <div class="flex h-full w-full" bind:this={editorContainer}></div>
