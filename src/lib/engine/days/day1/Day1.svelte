@@ -1,9 +1,5 @@
-<script>
-	let title = 'Hungrig Ankunft (Tag 1)';
-</script>
-
 <article class="my-4 rounded-lg border border-gray-300 p-4">
-	<h1 class="mb-2 text-2xl">{title}</h1>
+	<h1 class="mb-2 text-2xl">Hungrig Ankunft (Tag 1)</h1>
 	<p class="text-left text-base leading-relaxed">
 		<span class="mb-2 block"
 			>Du schlägst die Augen auf und blinzelst gegen das helle Licht, das durch die Bäume bricht. Um

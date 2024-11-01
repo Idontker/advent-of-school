@@ -33,7 +33,7 @@
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="mmodal-background" on:click={onclose}></div>
+<div class="mmodal-background" onclick={onclose}></div>
 
 <div transition:modal={{ duration: 1000 }} class="mmodal" role="dialog" aria-modal="true">
 	<img src="https://i.giphy.com/media/Ju7l5y9osyymQ/giphy.webp" alt="Man is dancing" />
