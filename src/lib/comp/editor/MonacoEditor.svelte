@@ -1,50 +1,59 @@
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import type * as Monaco from 'monaco-editor/esm/vs/editor/editor.api';
-
-	// interface Props {
-	// 	finishLoading: () => void;
-	// }
 
 	let editor: Monaco.editor.IStandaloneCodeEditor;
 	let monaco: typeof Monaco;
 	let editorContainer: HTMLElement;
 
 	const DEFAULT_CODE = `function benoetigteElfen(flottenGroesse){
-	//flottenGroesse ist eine Zahl z.B. 7
-	return flottenGroesse;
-	// return 2;
-	// return 6;
-	// return 1608;
-	// return Math.ceil(2 * flottenGroesse / 3);
-}`;
+		// flottenGroesse ist eine Zahl z.B. 7
+		return flottenGroesse;
+		// return 2;
+		// return 6;
+		// return 1608;
+		// return Math.ceil(2 * flottenGroesse / 3);
+	}`;
 
 	onMount(async () => {
 		// Import our 'monaco.ts' file here
-		// (onMount() will only be executed in the browser, which is what we want)
 		monaco = (await import('./monaco')).default;
 
-		// Your monaco instance is ready, let's display some code!
+		// Create the editor
 		editor = monaco.editor.create(editorContainer, {
-			theme: 'vs-dark'
+			theme: 'vs-dark',
+			language: 'javascript',
+			automaticLayout: false // Disable automatic layout for custom resizing
 		});
+
 		const model = monaco.editor.createModel(DEFAULT_CODE, 'javascript');
 		editor.setModel(model);
-		// monaco.editor
-		// 	.colorize(editor.getModel()?.getValue() || '', 'javascript', { tabSize: 2 })
-		// 	.then((html) => (editorContainer.innerHTML = html));
-	});
 
-	onDestroy(() => {
-		monaco?.editor.getModels().forEach((model) => model.dispose());
-		editor?.dispose();
+		// Add window resize listener
+		const resizeEditor = () => {
+			editor.layout();
+			console.log('resize');
+		};
+		window.addEventListener('resize', resizeEditor);
+
+		// Clean up the resize listener
+		// onDestroy(() => {
+		// 	window.removeEventListener('resize', resizeEditor);
+		// 	monaco?.editor.getModels().forEach((model) => model.dispose());
+		// 	editor?.dispose();
+		// });
 	});
 
 	export function getCode() {
-		let val = editor.getModel()?.getValue() || ''; // Returns the code as a string
+		const val = editor.getModel()?.getValue() || ''; // Returns the code as a string
 		console.log('editor code:', val);
 		return val;
 	}
-</script> 
+</script>
 
-<div class="flex h-full w-full" bind:this={editorContainer}></div>
+{#if !editorContainer || !editor}
+	<div class="flex h-full items-center justify-center">
+		<span class="loading loading-spinner loading-lg"></span>
+	</div>
+{/if}
+<div class="min-h-96 max-w-full" bind:this={editorContainer}></div>
