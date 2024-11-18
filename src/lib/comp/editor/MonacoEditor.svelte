@@ -6,6 +6,8 @@
 	let monaco: typeof Monaco;
 	let editorContainer: HTMLElement;
 
+	export let resize = () => {};
+
 	const DEFAULT_CODE = `function benoetigteElfen(flottenGroesse){
 		// flottenGroesse ist eine Zahl z.B. 7
 		return flottenGroesse;
@@ -34,6 +36,7 @@
 			editor.layout();
 			console.log('resize');
 		};
+		resize = resizeEditor;
 		window.addEventListener('resize', resizeEditor);
 
 		// Clean up the resize listener
@@ -42,6 +45,9 @@
 		// 	monaco?.editor.getModels().forEach((model) => model.dispose());
 		// 	editor?.dispose();
 		// });
+		// return {
+		// 	resizeEditor
+		// };
 	});
 
 	export function getCode() {
@@ -56,4 +62,4 @@
 		<span class="loading loading-spinner loading-lg"></span>
 	</div>
 {/if}
-<div class="min-h-96 max-w-full" bind:this={editorContainer}></div>
+<div class="h-full min-h-96 max-w-full" bind:this={editorContainer}></div>

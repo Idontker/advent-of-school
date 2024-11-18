@@ -197,9 +197,9 @@
 		{/if}
 	</div>
 	<div class="flex w-full gap-2 bg-black p-2">
-		<button class="btn btn-primary flex-grow" id="safe" {onclick}>Run Code</button>
+		<button class="btn btn-primary flex-grow" id="safe" {onclick}>Run Code ></button>
 		<button class="btn btn-secondary flex-grow" id="safe" onclick={runAllTestCases}
-			>Run All Tests
+			>Run All Tests >>
 		</button>
 	</div>
 

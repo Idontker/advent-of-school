@@ -4,11 +4,18 @@
 
 	// let day: string = $state('');
 	let editor: any = $state(null);
+	let editorResize: any = $state(() => {});
 	let current_testcase = $state(0);
 
 	// onMount(() => {
 	// 	day = $page.params.day;
 	// });
+
+	function handleEditorPaneResizing() {
+		if (editorResize) {
+			editorResize();
+		}
+	}
 
 	function useCode() {
 		try {
@@ -33,8 +40,14 @@
 		collapsible={true}
 		minSize={15}
 		bind:pane={paneOne}
-		onCollapse={() => (collapsed = true)}
-		onExpand={() => (collapsed = false)}
+		onCollapse={() => {
+			collapsed = true;
+			setTimeout(handleEditorPaneResizing, 50);
+		}}
+		onExpand={() => {
+			collapsed = false;
+			setTimeout(handleEditorPaneResizing, 50);
+		}}
 	>
 		{#if collapsed}
 			<button
@@ -68,10 +81,10 @@
 			<!-- <DotsSixVertical class="size-4 text-black" weight="bold" /> -->
 		</div>
 	</PaneResizer>
-	<Pane defaultSize={50}>
+	<Pane defaultSize={50} onResize={handleEditorPaneResizing}>
 		<PaneGroup direction="vertical">
-			<Pane class="bg-blue-400" defaultSize={50}>
-				<!-- <Editor bind:this={editor} /> -->
+			<Pane defaultSize={50} onResize={handleEditorPaneResizing}>
+				<Editor bind:this={editor} bind:resize={editorResize} />
 			</Pane>
 			<PaneResizer class="relative h-1 w-full bg-gray-500">
 				<div
