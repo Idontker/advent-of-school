@@ -1,9 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
-	let isDrawerOpen = true;
-	let drawerWidth = 256; // Standardbreite des Drawers (in Pixel)
+	let isDrawerOpen = $state(true);
+	let drawerWidth = $state(256); // Standardbreite des Drawers (in Pixel)
 	const minDrawerWidth = 64; // Mindestbreite
-	const maxDrawerWidth = 400; // Maximalbreite
+	const maxDrawerWidth = 800; // Maximalbreite
 
 	// Funktion zum Ein- und Ausklappen des Drawers
 	const toggleDrawer = () => {
@@ -11,7 +11,7 @@
 		drawerWidth = isDrawerOpen ? 256 : 64;
 	};
 
-	let isResizing = false;
+	let isResizing = $state(false);
 
 	// Event-Handler für das Starten und Stoppen des Resizings
 	const startResize = () => (isResizing = true);
@@ -21,6 +21,7 @@
 	const resizeDrawer = (event) => {
 		if (isResizing) {
 			const newWidth = event.clientX;
+			console.log('resizing:', newWidth);
 			if (newWidth >= minDrawerWidth && newWidth <= maxDrawerWidth) {
 				drawerWidth = newWidth;
 			}

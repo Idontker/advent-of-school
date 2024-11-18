@@ -41,6 +41,7 @@
 	},
 	"dependencies": {
 		"monaco-editor": "^0.52.0",
+		"paneforge": "^0.0.6",
 		"seedrandom": "^3.0.5",
 		"uuid": "^11.0.2"
 	}
