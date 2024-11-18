@@ -182,26 +182,32 @@
 	</Modal>
 {/if}
 
-<div
-	id="output"
-	class="box-border h-52 w-full overflow-y-auto bg-black p-2 font-mono text-secondary"
->
-	{#if output.length > 0}
-		{#each output as { classes, msg }}
-			<div class={classes}>{msg}</div>
-		{/each}
-	{:else}
-		<div>... this is your console ...</div>
-		<div>run your program to see its output</div>
-	{/if}
-</div>
+<div class="flex h-full flex-col">
+	<div
+		id="output"
+		class="box-border w-full flex-1 overflow-y-auto bg-black p-2 font-mono text-secondary"
+	>
+		{#if output.length > 0}
+			{#each output as { classes, msg }}
+				<div class={classes}>{msg}</div>
+			{/each}
+		{:else}
+			<div>... this is your output console ...</div>
+			<div>run your program to see its output</div>
+		{/if}
+	</div>
+	<div class="flex w-full gap-2 bg-black p-2">
+		<button class="btn btn-primary flex-grow" id="safe" {onclick}>Run Code</button>
+		<button class="btn btn-secondary flex-grow" id="safe" onclick={runAllTestCases}
+			>Run All Tests
+		</button>
+	</div>
 
-<button class="btn btn-primary" id="safe" {onclick}>Run Code</button>
-<button class="btn btn-secondary" id="safe" onclick={runAllTestCases}>Run All Tests </button>
-<iframe
-	title="sandbox frame"
-	sandbox="allow-scripts"
-	id="sandboxed"
-	src="/iframe/index.html"
-	class="hidden"
-></iframe>
+	<iframe
+		title="sandbox frame"
+		sandbox="allow-scripts"
+		id="sandboxed"
+		src="/iframe/index.html"
+		class="hidden"
+	></iframe>
+</div>
